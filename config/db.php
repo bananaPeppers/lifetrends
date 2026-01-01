@@ -4,13 +4,24 @@
  * Returns a PDO instance.
  */
 
-// Railway production environment variables (with local fallbacks)
-// Railway uses MYSQL_* format (with underscore)
-$dbHost = getenv('MYSQL_HOST') ?: getenv('MYSQLHOST') ?: getenv('DB_HOST') ?: '127.0.0.1';
-$dbPort = getenv('MYSQL_PORT') ?: getenv('MYSQLPORT') ?: getenv('DB_PORT') ?: '3306';
-$dbName = getenv('MYSQL_DATABASE') ?: getenv('MYSQLDATABASE') ?: getenv('DB_NAME') ?: 'railway';
-$dbUser = getenv('MYSQL_USER') ?: getenv('MYSQLUSER') ?: getenv('DB_USER') ?: 'root';
-$dbPass = getenv('MYSQL_PASSWORD') ?: getenv('MYSQLPASSWORD') ?: getenv('DB_PASS') ?: '';
+// Helper to get env var from multiple sources (Railway uses $_ENV)
+function getEnvVar($keys, $default = '') {
+    if (!is_array($keys)) $keys = [$keys];
+    foreach ($keys as $key) {
+        if (isset($_ENV[$key]) && $_ENV[$key] !== '') return $_ENV[$key];
+        if (isset($_SERVER[$key]) && $_SERVER[$key] !== '') return $_SERVER[$key];
+        $val = getenv($key);
+        if ($val !== false && $val !== '') return $val;
+    }
+    return $default;
+}
+
+// Railway environment variables (with local fallbacks)
+$dbHost = getEnvVar(['MYSQL_HOST', 'MYSQLHOST', 'DB_HOST'], '127.0.0.1');
+$dbPort = getEnvVar(['MYSQL_PORT', 'MYSQLPORT', 'DB_PORT'], '3306');
+$dbName = getEnvVar(['MYSQL_DATABASE', 'MYSQLDATABASE', 'DB_NAME'], 'railway');
+$dbUser = getEnvVar(['MYSQL_USER', 'MYSQLUSER', 'DB_USER'], 'root');
+$dbPass = getEnvVar(['MYSQL_PASSWORD', 'MYSQLPASSWORD', 'DB_PASS'], '');
 $dbCharset = 'utf8mb4';
 
 $dsn = "mysql:host={$dbHost};port={$dbPort};dbname={$dbName};charset={$dbCharset}";

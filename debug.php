@@ -28,8 +28,17 @@ $mysqlVars = [
 
 $found = [];
 foreach ($mysqlVars as $var) {
-    $val = getenv($var);
-    if ($val !== false) {
+    $val = false;
+    // Check $_ENV first (Railway uses this)
+    if (isset($_ENV[$var])) {
+        $val = $_ENV[$var];
+    } elseif (isset($_SERVER[$var])) {
+        $val = $_SERVER[$var];
+    } else {
+        $val = getenv($var);
+    }
+    
+    if ($val !== false && $val !== '') {
         // Mask password
         if (stripos($var, 'PASS') !== false || stripos($var, 'URL') !== false) {
             $found[$var] = substr($val, 0, 3) . '***' . substr($val, -3);
