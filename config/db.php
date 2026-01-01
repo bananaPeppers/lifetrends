@@ -4,13 +4,15 @@
  * Returns a PDO instance.
  */
 
-$dbHost = getenv('DB_HOST') ?: '127.0.0.1';
-$dbName = getenv('DB_NAME') ?: 'life';
-$dbUser = getenv('DB_USER') ?: 'root';
-$dbPass = getenv('DB_PASS') ?: '';
+// Railway production environment variables (with local fallbacks)
+$dbHost = getenv('MYSQLHOST') ?: getenv('DB_HOST') ?: '127.0.0.1';
+$dbPort = getenv('MYSQLPORT') ?: getenv('DB_PORT') ?: '3306';
+$dbName = getenv('MYSQLDATABASE') ?: getenv('DB_NAME') ?: 'railway';
+$dbUser = getenv('MYSQLUSER') ?: getenv('DB_USER') ?: 'root';
+$dbPass = getenv('MYSQLPASSWORD') ?: getenv('DB_PASS') ?: '';
 $dbCharset = 'utf8mb4';
 
-$dsn = "mysql:host={$dbHost};dbname={$dbName};charset={$dbCharset}";
+$dsn = "mysql:host={$dbHost};port={$dbPort};dbname={$dbName};charset={$dbCharset}";
 $options = [
   PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
   PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
