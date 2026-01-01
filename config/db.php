@@ -5,11 +5,12 @@
  */
 
 // Railway production environment variables (with local fallbacks)
-$dbHost = getenv('MYSQLHOST') ?: getenv('DB_HOST') ?: '127.0.0.1';
-$dbPort = getenv('MYSQLPORT') ?: getenv('DB_PORT') ?: '3306';
-$dbName = getenv('MYSQLDATABASE') ?: getenv('DB_NAME') ?: 'railway';
-$dbUser = getenv('MYSQLUSER') ?: getenv('DB_USER') ?: 'root';
-$dbPass = getenv('MYSQLPASSWORD') ?: getenv('DB_PASS') ?: '';
+// Railway uses MYSQL_* format (with underscore)
+$dbHost = getenv('MYSQL_HOST') ?: getenv('MYSQLHOST') ?: getenv('DB_HOST') ?: '127.0.0.1';
+$dbPort = getenv('MYSQL_PORT') ?: getenv('MYSQLPORT') ?: getenv('DB_PORT') ?: '3306';
+$dbName = getenv('MYSQL_DATABASE') ?: getenv('MYSQLDATABASE') ?: getenv('DB_NAME') ?: 'railway';
+$dbUser = getenv('MYSQL_USER') ?: getenv('MYSQLUSER') ?: getenv('DB_USER') ?: 'root';
+$dbPass = getenv('MYSQL_PASSWORD') ?: getenv('MYSQLPASSWORD') ?: getenv('DB_PASS') ?: '';
 $dbCharset = 'utf8mb4';
 
 $dsn = "mysql:host={$dbHost};port={$dbPort};dbname={$dbName};charset={$dbCharset}";
