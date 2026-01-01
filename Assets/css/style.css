@@ -12,6 +12,7 @@
   --pill-radius: 14px;
   --gap: 14px;
 }
+
 .app-container {
   max-width: 520px; /* fixed app width to keep mobile-sized layout */
   width: 100%;
@@ -37,7 +38,7 @@ body {
     "Helvetica Neue", Arial, sans-serif;
   font-weight: 700;
   font-size: 16px;
-  color: rgba(36, 48, 58, 0.95); /* darker for legibility on light/glass */
+  color: rgba(36, 48, 58, 0.95);
   -webkit-font-smoothing: antialiased;
   font-variant-numeric: tabular-nums;
   line-height: 1.1;
@@ -63,37 +64,49 @@ body {
   letter-spacing: 0.4px;
 }
 
-/* seconds removed — minutes-only display */
-
 .top {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 12px;
-  margin-bottom: 22px; /* larger gap between date and index */
+  margin-bottom: 22px;
 }
 
-/* date-pill removed — date/time display hidden per user request */
 .save-area {
   width: 84px;
   text-align: right;
 }
+
 .save-btn {
   background: linear-gradient(
     180deg,
-    rgba(37, 99, 235, 0.95),
-    rgba(37, 99, 235, 0.88)
+    rgba(37, 99, 235, 0.70),
+    rgba(37, 143, 255, 0.55)
   );
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  padding: 8px 12px;
-  border-radius: 12px;
-  font-weight: 700;
-  box-shadow: 0 10px 30px rgba(2, 6, 23, 0.12),
-    inset 0 2px 6px rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(6px);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-weight: 800;
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.12),
+    inset 0 1px 0 rgba(255,255,255,0.12);
+  backdrop-filter: blur(8px) saturate(130%);
+  -webkit-backdrop-filter: blur(8px) saturate(130%);
   transition: transform 160ms cubic-bezier(0.2, 0.9, 0.3, 1),
     box-shadow 160ms ease, opacity 160ms ease;
+  min-width: 72px;
+}
+
+.save-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(37, 99, 235, 0.16),
+    inset 0 1px 0 rgba(255,255,255,0.14);
+}
+
+.save-btn:active {
+  transform: translateY(1px) scale(0.99);
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.10),
+    inset 0 1px 0 rgba(255,255,255,0.08);
 }
 
 .save-btn.clicked {
@@ -105,32 +118,38 @@ body {
 
 .index-entry {
   display: flex;
-  align-items: center;
-  gap: 12px;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
   margin-bottom: 12px;
   padding: 12px;
   border-radius: 14px;
-  /* soft teal bubble to match other panels */
   background: linear-gradient(180deg, #e8fbf8 0%, #dff5f2 100%);
   box-shadow: 0 12px 30px rgba(10, 40, 36, 0.06);
   border: 1px solid rgba(30, 120, 110, 0.06);
   color: var(--text);
 }
+
 .index-label {
   font-weight: 700;
   color: var(--heading);
+  display: block;
+  margin-bottom: 6px;
 }
+
 .index-input {
   flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   gap: 8px;
   position: relative;
 }
+
 #todayIndex {
-  flex: 1;
+  width: 100%;
 }
+
 .glass-card {
   background: linear-gradient(
     180deg,
@@ -150,23 +169,15 @@ body {
   background: rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(8px);
   border-radius: 10px;
-  padding: 4px 12px;
+  padding: 8px 12px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
   color: var(--muted);
   font-weight: 700;
-  min-width: 40px;
-  text-align: center;
 }
+
 .index-action {
-  margin-left: 8px;
+  align-self: flex-end;
 }
-.save-btn {
-  min-width: 72px;
-}
-
-/* Overview/months grid and stats removed from markup; styles omitted */
-
-/* Questions were removed from the UI; question-specific styles omitted */
 
 .calendar-placeholder {
   display: none;
@@ -177,9 +188,6 @@ body {
   .app-container {
     padding: 20px;
   }
-  .overview {
-    gap: 18px;
-  }
 }
 
 /* Make range controls larger on touch devices */
@@ -188,11 +196,8 @@ input[type="range"] {
   height: 36px;
   background: transparent;
 }
-/* Native gradient track and glass ring thumb
-   - Gradient: red → neutral gray → blue
-   - Track retains previous height, rounded corners, glow and inset highlight
-   - Thumb: same height as track, translucent white fill, slightly thicker border
-*/
+
+/* Track */
 input[type="range"]::-webkit-slider-runnable-track {
   height: 12px;
   border-radius: 999px;
@@ -206,6 +211,7 @@ input[type="range"]::-webkit-slider-runnable-track {
   box-shadow: 0 6px 18px rgba(37, 99, 235, 0.06),
     inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }
+
 input[type="range"]::-moz-range-track {
   height: 12px;
   border-radius: 999px;
@@ -220,26 +226,26 @@ input[type="range"]::-moz-range-track {
     inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }
 
-/* WebKit thumb */
+/* Thumb */
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.32); /* translucent white fill */
-  border: 3px solid rgba(255, 255, 255, 0.6); /* translucent outer ring */
+  background: rgba(255, 255, 255, 0.32);
+  border: 3px solid rgba(255, 255, 255, 0.6);
   box-shadow: 0 6px 12px rgba(12, 20, 30, 0.18),
     0 0 10px rgba(255, 255, 255, 0.06) inset;
-  margin-top: 0; /* vertically center against 12px track */
+  margin-top: 0;
   transition: transform 120ms ease, box-shadow 120ms ease;
 }
+
 input[type="range"]:active::-webkit-slider-thumb {
   transform: scale(0.98);
   box-shadow: 0 4px 10px rgba(12, 20, 30, 0.2),
     0 0 12px rgba(255, 255, 255, 0.08) inset;
 }
 
-/* Firefox thumb/track */
 input[type="range"]::-moz-range-thumb {
   width: 12px;
   height: 12px;
@@ -247,45 +253,6 @@ input[type="range"]::-moz-range-thumb {
   background: rgba(255, 255, 255, 0.32);
   border: 3px solid rgba(255, 255, 255, 0.6);
   box-shadow: 0 6px 12px rgba(12, 20, 30, 0.18);
-}
-input[type="range"]::-moz-range-track {
-  height: 12px;
-}
-
-/* Edge/IE fallback track & thumb */
-input[type="range"]::-ms-track {
-  height: 12px;
-  background: transparent;
-  border-color: transparent;
-  color: transparent;
-}
-input[type="range"]::-ms-thumb {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.32);
-  border: 3px solid rgba(255, 255, 255, 0.6);
-  box-shadow: 0 6px 12px rgba(12, 20, 30, 0.18);
-}
-input[type="range"]::-ms-fill-lower {
-  background: linear-gradient(
-    90deg,
-    rgba(237, 50, 55, 0.95) 0%,
-    rgba(255, 200, 30, 0.95) 33%,
-    rgba(60, 180, 75, 0.95) 66%,
-    rgba(60, 200, 240, 0.95) 100%
-  );
-  border-radius: 999px;
-}
-input[type="range"]::-ms-fill-upper {
-  background: linear-gradient(
-    90deg,
-    rgba(237, 50, 55, 0.95) 0%,
-    rgba(255, 200, 30, 0.95) 33%,
-    rgba(60, 180, 75, 0.95) 66%,
-    rgba(60, 200, 240, 0.95) 100%
-  );
-  border-radius: 999px;
 }
 
 /* ensure consistent baseline and spacing */
@@ -299,10 +266,6 @@ input[type="range"] {
   padding: 0 6px;
 }
 
-/* floating value that sits above the slider thumb */
-/* thumb droplet removed */
-
-/* numeric display below the slider */
 .index-number {
   text-align: center;
   margin-top: 8px;
@@ -311,28 +274,49 @@ input[type="range"] {
   min-width: 40px;
 }
 
+.index-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  margin-top: 6px;
+}
+
+.index-row .index-number {
+  margin-top: 0;
+  text-align: left;
+}
+
+.index-row .index-action {
+  margin-left: 0;
+  align-self: auto;
+}
+
 /* averages bubble below the index — single row, three columns */
 .averages-entry {
   margin-top: 12px;
   padding: 14px;
   border-radius: 14px;
-  /* pleasant soft teal gradient */
   background: linear-gradient(180deg, #e8fbf8 0%, #dff5f2 100%);
   box-shadow: 0 12px 30px rgba(10, 40, 36, 0.06);
   border: 1px solid rgba(30, 120, 110, 0.06);
   backdrop-filter: blur(4px);
   color: var(--text);
 }
+
 .avg-label {
   font-weight: 700;
   color: var(--heading);
   margin-bottom: 10px;
 }
+
 .avg-panels {
   display: flex;
   gap: 12px;
   align-items: stretch;
 }
+
 .avg-panel {
   flex: 1 1 0;
   background: linear-gradient(
@@ -349,12 +333,14 @@ input[type="range"] {
   flex-direction: column;
   justify-content: center;
 }
+
 .avg-title {
   font-size: 13px;
   color: var(--muted);
   font-weight: 700;
   margin-bottom: 8px;
 }
+
 .avg-value {
   font-weight: 900;
   font-size: 20px;
@@ -372,24 +358,29 @@ input[type="range"] {
   backdrop-filter: blur(4px);
   color: var(--text);
 }
+
 .lastyear-entry .avg-label {
   margin-bottom: 10px;
 }
+
 .lastyear-entry .avg-panels {
   display: flex;
   gap: 12px;
 }
+
 .lastyear-entry .avg-panel {
   flex: 1;
   padding: 12px;
   border-radius: 10px;
   background: rgba(255, 255, 255, 0.6);
 }
+
 .lastyear-entry .avg-title {
   color: var(--muted);
   font-weight: 700;
   margin-bottom: 6px;
 }
+
 .lastyear-entry .avg-value {
   font-size: 18px;
   font-weight: 800;
@@ -418,23 +409,21 @@ input[type="range"] {
   backdrop-filter: blur(8px);
   opacity: 0;
   pointer-events: none;
-  transition: transform 260ms cubic-bezier(0.2, 0.9, 0.3, 1), opacity 260ms ease;
+  transition: transform 260ms cubic-bezier(0.2, 0.9, 0.3, 1),
+    opacity 260ms ease;
   z-index: 9999;
 }
+
 .glass-notice.show {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
 }
 
-/* animate background changes smoothly */
-input[type="range"] {
-  transition: background 220ms ease;
-  position: relative;
-  z-index: 1;
+/* focus styles */
+input[type="range"]:focus {
+  outline: none;
 }
 
-/* Mobile: slightly smaller thumb and matching thumb-value size */
-/* remove mobile shrink — keep thumb same diameter as slider for consistent look */
 /* subtle horizontal baseline behind the slider */
 .index-input::before {
   content: "";
@@ -447,8 +436,229 @@ input[type="range"] {
   background: rgba(15, 23, 42, 0.06);
   z-index: 0;
 }
-/* bubble transition handled in .index-bubble above */
-/* focus styles */
-input[type="range"]:focus {
-  outline: none;
+
+/* =========================================================
+   NEW: Segmented Year Progress Bar (365 segments)
+   ========================================================= */
+
+.progress-label {
+  margin-top: 12px;
+  margin-bottom: 8px;
+  font-weight: 800;
+  color: var(--heading);
+  font-size: 13px;
+  letter-spacing: 0.2px;
+}
+
+.year-progress {
+  position: relative;
+  width: 100%;
+  height: 16px;
+  border-radius: 999px;
+  overflow: hidden;
+  display: flex;
+  background: rgba(255, 255, 255, 0.45);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 10px 22px rgba(2, 6, 23, 0.06);
+}
+
+/* One per day (created in JS) */
+.progress-segment {
+  flex: 1 1 0;
+  min-width: 1px;
+  background: rgba(235, 235, 235, 0.65); /* default neutral before JS paints */
+}
+
+/* Visual smoothing: subtle transition and slight saturation boost */
+.progress-segment {
+  transition: background-color 180ms linear;
+  filter: saturate(1.05);
+}
+
+/* For future (current year): keep neutral, not colored */
+.progress-segment.future {
+  background: rgba(220, 220, 220, 0.22);
+}
+
+/* optional subtle separators (keeps it looking “subdivided” without harsh lines) */
+.progress-segment:not(:last-child) {
+  box-shadow: inset -1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* marker line for last-year progress: JS positions by day-of-year */
+.progress-marker-line {
+  position: absolute;
+  /* nudge line up by 1px so it visually connects with triangle tip */
+  top: -1px;
+  bottom: -4px;
+  width: 2px;
+  /* match triangle color and make glass-like */
+  background: rgba(18,20,22,0.65);
+  /* remove rounded top corners so line meets triangle cleanly */
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+  /* remove extra shadows so color/opacity match the triangle exactly */
+  box-shadow: none;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 8;
+}
+/* Segmented yearly progress bars (365/366 segments) */
+.progress-label {
+  margin-top: 12px;
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(60, 70, 80, 0.65);
+}
+
+.year-progress {
+  margin-top: 18px;
+  height: 14px;
+  width: 100%;
+}
+
+/* recommended: keep the bar visually contained and lightly inset */
+.progress-bar {
+  /* allow marker/pin to extend and not be clipped */
+  overflow: visible;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.03);
+}
+
+.morestats-entry {
+  margin-top: 14px;
+  padding: 12px;
+  /* soft off-white glass gradient, matching other cards */
+  background: linear-gradient(180deg, rgba(255,255,255,0.92) 0%, rgba(250,250,250,0.82) 60%);
+  color: var(--text);
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.6);
+  box-shadow: 0 12px 30px rgba(10,40,36,0.06);
+  backdrop-filter: blur(6px);
+}
+
+.morestats-entry .morestats-header { color: var(--heading); }
+.morestats-entry .trend-title { color: var(--muted); }
+.morestats-entry .trend-main { color: var(--success); }
+.morestats-entry .trend-main.down { color: var(--danger); }
+.morestats-entry .trend-indicator.up { color: var(--success); }
+.morestats-entry .trend-indicator.down { color: var(--danger); }
+.morestats-entry .today-delta { color: var(--text); }
+.morestats-entry .pos { color: var(--success); font-weight:700; }
+.morestats-entry .neg { color: var(--danger); font-weight:700; }
+.morestats-entry .neutral { color: var(--muted); }
+.morestats-entry .bw-item { background: rgba(255,255,255,0.6); }
+.morestats-header {
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.trend-block {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.trend-title { color: #999; font-size: 0.9rem; }
+.trend-main { font-weight: 800; font-size: 1.05rem; }
+.trend-main .arrow { margin-right: 6px; }
+
+.trend-main.up { color: #1fb26a; }
+.trend-main.down { color: #ff6b6b; }
+.trend-main.flat { color: #c9c9c9; }
+
+.trend-indicator.up, .stat-arrow.up { color: #1fb26a; }
+.trend-indicator.down, .stat-arrow.down { color: #ff6b6b; }
+.trend-indicator.flat, .stat-arrow.flat { color: #c9c9c9; }
+
+.today-delta { font-size: 0.95rem; color: #ddd; margin-top: 6px; }
+.today-delta .pos { color: #1fb26a; }
+.today-delta .neg { color: #ff6b6b; }
+.today-delta .neutral { color: #c9c9c9; }
+/* Short-term comparison block: tight 3-column grid (label, value, arrow+delta) */
+.trend-grid {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  column-gap: 10px;
+  row-gap: 6px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.trend-row { display: contents; }
+.trend-name { color: var(--muted); font-size: 0.92rem; }
+.trend-value { font-weight: 800; text-align: left; }
+.trend-indicator { font-weight: 700; width: 56px; text-align: right; }
+
+/* compact Today vs Yesterday single row */
+.today-delta { display: flex; align-items: center; gap: 8px; padding: 6px 0; border-top: 1px solid rgba(2,6,23,0.04); margin-top: 8px; }
+.today-delta .pos { color: var(--success); font-weight:700; }
+.today-delta .neg { color: var(--danger); font-weight:700; }
+.today-delta .neutral { color: var(--muted); }
+ .td-label { color: var(--muted); }
+
+.bestworst { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(2,6,23,0.04); }
+.bw-item { padding: 6px 8px; border-radius: 8px; background: rgba(255,255,255,0.6); }
+.bw-title { color: var(--muted); font-size: 0.85rem; margin-bottom: 4px; }
+.bw-row { display: flex; align-items: baseline; gap: 8px; }
+.bw-label { font-weight: 700; color: var(--muted); }
+.bw-value { font-size: 1rem; font-weight: 800; }
+.stat-small { font-size: 0.92rem; }
+  border-radius: 999px;
+  overflow: visible;
+  display: flex;
+  gap: 1px; /* tiny dividers between days */
+  background: rgba(220, 220, 220, 0.35);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  position: relative;
+}
+
+.progress-segment {
+  flex: 1 1 0;
+  height: 100%;
+  background: rgba(210, 210, 210, 0.35); /* default */
+}
+
+/* Vertical marker line for last year's bar */
+.progress-marker-line {
+  position: absolute;
+  top: -1px;
+  bottom: -2px;
+  width: 2px;
+  background: rgba(18,20,22,0.65);
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+  box-shadow: none;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 8;
+}
+
+/* Pin shown above the progress bar to indicate current day (inverted circle with pointer) */
+.progress-pin {
+  /* zero-size anchor; triangle drawn by pseudo-element */
+  position: absolute;
+  top: 0; /* align anchor top with bar top */
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+.progress-pin::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  /* create a downward-pointing, translucent triangle whose tip will sit exactly at the bar top */
+  width: 0;
+  height: 0;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-top: 8px solid rgba(18,20,22,0.65);
+  /* no shadow: keep triangle color/opacity identical to the line */
+  /* position the triangle so its bottom tip is exactly at the bar's top edge */
+  top: -8px;
 }
